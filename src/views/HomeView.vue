@@ -56,10 +56,11 @@ export default {
     }
   },
   mounted() {
-    fetch("https://openlibrary.org/search.json?q=brandon-sanderson&limit=100")
+    fetch("https://openlibrary.org/search.json?q=books&limit=100")
       .then(res => res.json())
       .then(data => this.books = data.docs)
       .then(r => this.fetched = true)
+    
   },
   computed: {
     filterBooksWithCovers() {

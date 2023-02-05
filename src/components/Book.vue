@@ -39,6 +39,7 @@ export default {
   bottom: -10px;
   left: -100px;
   max-height: 40vh;
+  min-height: 20vh;
   width: auto;
   max-width: 15vw;
   min-width: 200px;
