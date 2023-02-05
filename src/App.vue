@@ -1,30 +1,67 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <Header />
   </nav>
-  <router-view/>
+  <router-view v-slot="{ Component }">
+    <transition name="route" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 </template>
 
+<script>
+import Header from './components/Header.vue'
+
+export default {
+  components: {
+    Header
+  }
+}
+
+</script>
+
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&family=Montserrat:wght@600&display=swap');
+
+body {
+  background-color: #F8F3ED;
+  font-family: 'Montserrat', 'Libre Caslon Text', sans-serif;
+  color: #2C1810;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
 nav {
-  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #2C1810;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+/* route transitions */
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(200px)
+}
+
+.route-enter-active {
+  transition: ass 0.5s ease-out;
+}
+
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(-100px)
+}
+
+.route-leave-active {
+  transition: all 0.3s ease-in;
 }
 </style>
