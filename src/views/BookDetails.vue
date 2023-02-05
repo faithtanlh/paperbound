@@ -8,7 +8,7 @@
         <img :src="getImgUrl(coverId)" />
       </div>
       <div class="book-desc">
-        <h1>{{ book[getISBN].title }}</h1>
+        <h1>{{ title }}</h1>
         <h3>{{ subtitle }}</h3>
         <p>{{ authorNames }}</p>
       </div>
@@ -39,6 +39,13 @@ export default {
     },
     getISBN() {
       return "ISBN:" + this.id;
+    },
+    title() {
+      if (this.book[this.getISBN].title) {
+        return this.book[this.getISBN].title;
+      } else {
+        return "Untitled"
+      }
     },
     authorNames() {
       var authors = new Set();
