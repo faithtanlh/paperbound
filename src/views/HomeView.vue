@@ -1,12 +1,13 @@
 <template>
   <div class="home">
-    <!-- Top Shelf Row -->
+    <!-- Top Shelf Row -->  
     <ShelfRow>
       <template v-slot:first>
         <div class="main-caption">
-          <p>New & <br /> Trending</p>
+          <p>Find Your <br /> Favourite Book</p>
           <span>Explore new worlds from authors</span>
           <SearchBar v-model="searchValue" @change="onChange()"/>
+          <fa v-if="!fetched" id="spinner" icon="spinner" class="fa-spin-pulse"/>
         </div>
       </template>
       <template v-slot:second v-if="filterBooksWithCovers.length > 1">
@@ -60,12 +61,6 @@ export default {
       .then(data => this.books = data.docs)
       .then(r => this.fetched = true)
   },
-  // async setup() {
-  //   const res = await fetch("https://openlibrary.org/search.json?q=brandon-sanderson&limit=100")
-  //     .then(res => res.json())
-  //     .then(data => this.books = data.docs)
-  //     .then(r => this.fetched = true)
-  // },
   computed: {
     filterBooksWithCovers() {
       return this.books.filter((o) => o.cover_i !== undefined)
@@ -84,6 +79,12 @@ export default {
 </script>
 
 <style scoped>
+#spinner {
+  padding: 10px;
+  margin: auto;
+  font-size: 40px;
+}
+
 .main-caption {
     margin-top: 3%;
     height: 100%;

@@ -10,7 +10,7 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/books/:id",
+    path: "/books/:id/:coverId",
     name: "BookDetails",
     component: BookDetails,
     props: true,

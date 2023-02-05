@@ -49,11 +49,7 @@ nav ul li.active {
   background-color: #DAAA63;
   border-radius: 30px;
   padding: 15px 35px;
-}
-
-nav ul li a:hover {
-  background-color: #DAAA63;
-  border-radius: 30px;
+  box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
 #link {

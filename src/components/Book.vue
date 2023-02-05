@@ -25,6 +25,7 @@ export default {
           name: 'BookDetails',
           params: {
             id: this.books[this.index].isbn[0],
+            coverId: this.books[this.index].cover_i
           }
         })
       }
