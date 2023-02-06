@@ -1,6 +1,12 @@
-# paperbound
+# Paperbound
 
-## Project setup
+## Setup
+
+Clone the repository using Git.
+```
+$ git clone git@github.com:faithtanlh/paperbound.git
+```
+Once downloaded, open the terminal in the project directory and install project dependencies:
 ```
 npm install
 ```
@@ -10,15 +16,13 @@ npm install
 npm run serve
 ```
 
+
 ### Compiles and minifies for production
 ```
 npm run build
 ```
 
-### Run your unit tests
+### Run local unit tests
 ```
 npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```  
