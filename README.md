@@ -1,4 +1,13 @@
-# Paperbound
+<p align="center">
+  <img src="src/assets/logo.png?raw=true" width="60%"/>
+</p>
+<br />
+<p align="center">
+  A front-end application for book lovers.
+  <br />
+  <a href="https://paperbound.netlify.app/">View Demo</a>
+</p>
+
 
 ## Setup
 
