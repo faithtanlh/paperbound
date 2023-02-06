@@ -71,7 +71,7 @@ export default {
           top: top,
           behavior: 'smooth'
         });
-      }, 200)
+      }, 100)
     } else {
       fetch("https://openlibrary.org/search.json?q=books&limit=50")
         .then(res => res.json())
