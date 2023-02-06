@@ -22,13 +22,13 @@
       <div v-for="row in (Math.floor((filterBooksWithCovers.length - 2)/3))" :key="row">
         <ShelfRow>
           <template v-slot:first>
-            <Book :books="filterBooksWithCovers" :fetched="fetched" :index="row*3 - 1"/>
+            <Book :id="row*3 - 1" :books="filterBooksWithCovers" :fetched="fetched" :index="row*3 - 1"/>
           </template>
           <template v-slot:second>
-            <Book :books="filterBooksWithCovers" :fetched="fetched" :index="row*3" />
+            <Book :id="row*3" :books="filterBooksWithCovers" :fetched="fetched" :index="row*3" />
           </template>
           <template v-slot:third>
-            <Book :books="filterBooksWithCovers" :fetched="fetched" :index="row*3 + 1"/>
+            <Book :id="row*3 + 1" :books="filterBooksWithCovers" :fetched="fetched" :index="row*3 + 1"/>
           </template>
         </ShelfRow>
       </div>
@@ -40,6 +40,7 @@
 import ShelfRow from '../components/ShelfRow.vue'
 import SearchBar from '../components/SearchBar.vue'
 import Book from '../components/Book.vue'
+import { assertTSExpressionWithTypeArguments } from '@babel/types'
 
 export default {
   name: 'HomeView',
@@ -56,11 +57,36 @@ export default {
     }
   },
   mounted() {
-    fetch("https://openlibrary.org/search.json?q=books&limit=100")
-      .then(res => res.json())
-      .then(data => this.books = data.docs)
-      .then(r => this.fetched = true)
-    
+    var localBooksData = localStorage.getItem("books");
+    var searchData = localStorage.getItem("searchValue");
+    this.fetched = false;
+    if (localBooksData !== null) {
+      this.books = JSON.parse(localBooksData);
+      this.searchValue = searchData;
+      this.fetched = true;
+      var top = this.$route.meta.scrollPos["top"];
+      setTimeout(function () {
+        window.scrollTo({
+          left: 0, 
+          top: top,
+          behavior: 'smooth'
+        });
+      }, 200)
+    } else {
+      fetch("https://openlibrary.org/search.json?q=books&limit=50")
+        .then(res => res.json())
+        .then(data => this.books = data.docs)
+        .then(r => this.fetched = true)
+    }
+  },
+  created() {
+    window.addEventListener('beforeunload', this.handleReload);
+  },
+  watch: {
+    books(newBooks, oldBooks) {
+      localStorage.setItem('books', JSON.stringify(newBooks));
+      localStorage.setItem('searchValue', this.searchValue);
+    },
   },
   computed: {
     filterBooksWithCovers() {
@@ -70,10 +96,14 @@ export default {
   methods: {
     onChange() {
       this.fetched = false;
-      fetch("https://openlibrary.org/search.json?q=" + this.searchValue + "&limit=100")
+      fetch("https://openlibrary.org/search.json?q=" + this.searchValue + "&limit=50")
         .then(res => res.json())
         .then(data => this.books = data.docs)
         .then(r => this.fetched = true)
+    },
+    handleReload() {
+      localStorage.removeItem('books');
+      localStorage.removeItem('searchValue');
     }
   }
 }
