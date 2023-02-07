@@ -83,7 +83,7 @@ Whilst the data is being fetched from the Covers API, a loading spinner is displ
 
 <img src="https://user-images.githubusercontent.com/99934770/217339047-12d8970d-1621-485e-a94e-e342c7c3cacd.gif" width="80%" />
 
-To create a more seamless user experience, vertical fade-out Vue router transitions were used when routing from the `Home` page to the `BookDetails` page, which complemented the overall vertical geography of the `Home` page.
+To create a more seamless user experience, vertical fade-out Vue router transitions were used when routing from one page to another, which complemented the overall vertical geography of the `Home` page.
 
 ### 5. Back Button 
 
