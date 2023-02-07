@@ -61,10 +61,25 @@ npm run test:unit
 
 ### 1. Shelving Design for Home Page
 
+The `Home` page is designed by implementing a stack of `ShelfRow` custom components (see `ShelfRow.js`). Using Vue's `<slot>` elements, each `ShelfRow` component contains three slots into which three template elements can be conditionally rendered. These slots are placed as inline-block elements, under which a `Shelf` custom styled component (which appears as a 2D shelf representation on the webpage) is rendered. Thus, `ShelfRow` components mimic the behaviour of bookshelves, whereby slots can be used to "place objects". 
+
+These `ShelfRow` components are used to conditionally render new `Book` components (which represent books and appear as book covers on the shelves) upon fetching data from the API endpoint (see `HomeView.js`). 
+
 ### 2. Loading Animation During Fetch
+
+Whilst the data is being fetched from the Covers API, a loading spinner is displayed underneath the search bar, which provides users visibility of system status. This was implemented using a listener `fetched` that returns true only when the fetch `Promise` has been fulfilled.
 
 ### 3. Route Transitions
 
+To create a more seamless user experience, vertical fade-out Vue router transitions were used when routing from the `Home` page to the `BookDetails` page, which complemented the overall vertical geography of the `Home` page.
+
 ### 4. Back Button 
 
-### 5. Saved Scroll Position
+The back navigation element on the `BookDetails` page allows users to easily navigate backwards to the `Home` page. A scale animation was set on hover to provide additional feedback that the element is clickable. 
+
+### 5. Search Results and Scroll Position Saved On Navigation
+
+When navigating back to the `Home` page from the `BookDetails` page, the previous search results are re-rendered and the search bar will contain the user's prior search inputs. A smooth scroll animation after back navigation enables the user to scroll down to their last scroll position before they had navigated away from the `Home` page. 
+
+This design feature was made to allow users to quickly revisit the progress of their book search, and this was implemented using local storage (to store fetched data and search input values) and Vue Router's route meta fields (to store scroll position parameters). 
+
