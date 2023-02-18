@@ -56,7 +56,7 @@ export default {
       searchValue: ""
     }
   },
-  mounted() {
+  async mounted() {
     var localBooksData = localStorage.getItem("books");
     var searchData = localStorage.getItem("searchValue");
     this.fetched = false;
@@ -73,10 +73,10 @@ export default {
         });
       }, 100)
     } else {
-      fetch("https://openlibrary.org/search.json?q=books&limit=50")
-        .then(res => res.json())
-        .then(data => this.books = data.docs)
-        .then(r => this.fetched = true)
+      const response = await fetch("https://openlibrary.org/search.json?q=books&limit=50");
+      const data = await response.json();
+      this.books = data.docs;
+      this.fetched = true;
     }
   },
   created() {
@@ -94,12 +94,12 @@ export default {
     }
   },
   methods: {
-    onChange() {
+    async onChange() {
       this.fetched = false;
-      fetch("https://openlibrary.org/search.json?q=" + this.searchValue + "&limit=50")
-        .then(res => res.json())
-        .then(data => this.books = data.docs)
-        .then(r => this.fetched = true)
+      const response = await fetch("https://openlibrary.org/search.json?q=" + this.searchValue + "&limit=50")
+      const data = await response.json()
+      this.books = data.docs
+      this.fetched = true
     },
     handleReload() {
       localStorage.removeItem('books');
